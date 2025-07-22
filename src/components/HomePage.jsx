@@ -96,7 +96,7 @@ const HomePage = ({ setCurrentPage }) => {
                 <Leaf size={32} color="#2563eb" />
               </div>
               <h3 className="stats-title">Crop Varieties</h3>
-              <div className="stats-value" style={{ color: '#2563eb' }}>40+</div>
+              <div className="stats-value" style={{ color: '#2563eb' }}>4</div>
               <p className="stats-desc">Real agricultural data from Indonesia</p>
             </div>
             
