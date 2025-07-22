@@ -21,7 +21,7 @@ const RecommendPage = ({
     { 
       icon: <Leaf size={24} />, 
       title: 'Dataset Records', 
-      value: '40', 
+      value: '200+', 
       desc: 'Real crop varieties from agricultural data.',
       bgColor: '#dcfce7',
       textColor: '#16a34a'
