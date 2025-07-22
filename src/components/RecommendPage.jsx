@@ -1,43 +1,44 @@
 import React from 'react';
-import { BarChart3, Leaf, Target, Clock, Droplets, FlaskConical, DollarSign, TrendingUp, Banknote } from 'lucide-react';
+import { BarChart3, Leaf, Target, Clock, Droplets, FlaskConical, DollarSign, TrendingUp, Banknote, Star } from 'lucide-react';
 
 const RecommendPage = ({ 
   formData, 
   handleInputChange, 
   handleSubmit, 
   loading, 
-  recommendations 
+  recommendations,
+  dataLoading 
 }) => {
   const stats = [
     { 
       icon: <BarChart3 size={24} />, 
       title: 'Accuracy Rate', 
       value: '95%', 
-      desc: 'Based on MADM methods and real-world data.',
+      desc: 'Based on MADM methods and similarity matching.',
       bgColor: '#dbeafe',
       textColor: '#2563eb'
     },
     { 
       icon: <Leaf size={24} />, 
-      title: 'Commodities Compared', 
+      title: 'Dataset Records', 
       value: '40', 
-      desc: 'Variety of regional food crops analyzed.',
+      desc: 'Real crop varieties from agricultural data.',
       bgColor: '#dcfce7',
       textColor: '#16a34a'
     },
     { 
       icon: <Target size={24} />, 
-      title: 'Key Factors Analyzed', 
-      value: '6', 
-      desc: 'Includes rainfall, soil pH, production cost, and more',
+      title: 'Similarity Matching', 
+      value: 'AI', 
+      desc: 'Intelligent matching with user conditions',
       bgColor: '#f3f4f6',
       textColor: '#6b7280'
     },
     { 
       icon: <Clock size={24} />, 
-      title: 'Recommendation Time', 
-      value: '<1s', 
-      desc: 'Instant, ranked crop results for your region.',
+      title: 'Processing Time', 
+      value: '<2s', 
+      desc: 'Fast recommendation with detailed analysis.',
       bgColor: '#fef3c7',
       textColor: '#d97706'
     }
@@ -46,71 +47,119 @@ const RecommendPage = ({
   const steps = [
     {
       step: '01',
-      title: 'Enter Region Data',
-      description: 'Input rainfall, soil pH, and crop data from your location.'
+      title: 'Input Agricultural Conditions',
+      description: 'Enter your region\'s specific data including climate, soil, and economic factors.'
     },
     {
       step: '02',
-      title: 'Dual MADM Analysis',
-      description: 'System applies SAW and TOPSIS to your data for reliable evaluation.'
+      title: 'Similarity Analysis',
+      description: 'AI matches your conditions with real agricultural dataset using advanced algorithms.'
     },
     {
       step: '03',
-      title: 'Get Crop Rankings',
-      description: 'Instantly see which crops are most suitable and profitable to plant.'
+      title: 'MADM Processing',
+      description: 'SAW & TOPSIS methods analyze and rank suitable crops based on multiple criteria.'
+    },
+    {
+      step: '04',
+      title: 'Get Smart Recommendations',
+      description: 'Receive ranked crop suggestions with detailed scores and agricultural insights.'
     }
   ];
 
   const formFields = [
-    { name: 'rainfall', label: 'Rainfall (mm/month)', type: 'number', placeholder: 'Enter average rainfall' },
-    { name: 'marketDemand', label: 'Market Demand (1-10)', type: 'number', min: 1, max: 10, placeholder: 'Enter consumption level' },
-    { name: 'soilPH', label: 'Soil pH (0-14)', type: 'number', min: 0, max: 14, step: 0.1, placeholder: 'Enter soil pH' },
-    { name: 'sellingPrice', label: 'Selling Price (Rp/kg)', type: 'number', placeholder: 'Enter market price' },
-    { name: 'productionCost', label: 'Production Cost (Rp/hectare)', type: 'number', placeholder: 'Enter production cost per crop' },
-    { name: 'harvestDuration', label: 'Harvest Duration (days)', type: 'number', placeholder: 'Enter estimated harvest time' }
+    { name: 'rainfall', label: 'Rainfall (mm/month)', type: 'number', placeholder: 'e.g., 150-250', min: 100, max: 300 },
+    { name: 'marketDemand', label: 'Market Demand Level (1-10)', type: 'number', min: 1, max: 10, placeholder: 'e.g., 7' },
+    { name: 'soilPH', label: 'Soil pH Level (5.5-7.0)', type: 'number', min: 5.5, max: 7.0, step: 0.1, placeholder: 'e.g., 6.2' },
+    { name: 'sellingPrice', label: 'Target Selling Price (Rp/kg)', type: 'number', placeholder: 'e.g., 15000', min: 5000, max: 30000 },
+    { name: 'productionCost', label: 'Production Budget (Rp/hectare)', type: 'number', placeholder: 'e.g., 1500000', min: 1000000, max: 2000000 },
+    { name: 'harvestDuration', label: 'Harvest Duration (days)', type: 'number', placeholder: 'e.g., 120', min: 60, max: 180 }
   ];
 
   const criteria = [
     { 
       icon: <Droplets size={20} color="#3b82f6" />, 
-      title: 'Rainfall', 
-      desc: 'Monthly average rainfall needed for optimal crop growth' 
+      title: 'Rainfall Pattern', 
+      desc: 'Monthly rainfall requirements for optimal crop growth and yield' 
     },
     { 
       icon: <FlaskConical size={20} color="#f97316" />, 
-      title: 'Soil pH', 
-      desc: 'Acidity level of soil, ideal range for most crops is 6.5-7.5' 
+      title: 'Soil pH Level', 
+      desc: 'Soil acidity level - most crops thrive in pH 6.0-7.0 range' 
     },
     { 
       icon: <DollarSign size={20} color="#ef4444" />, 
       title: 'Production Cost', 
-      desc: 'Estimated cost per hectare to grow the crop' 
+      desc: 'Total investment needed per hectare including seeds, fertilizers, labor' 
     },
     { 
       icon: <TrendingUp size={20} color="#16a34a" />, 
       title: 'Market Demand', 
-      desc: 'The level of local consumption or demand for the crop' 
+      desc: 'Current market demand and consumption trends for the crop' 
     },
     { 
       icon: <Banknote size={20} color="#8b5cf6" />, 
-      title: 'Selling Price', 
-      desc: 'Average market price per kilogram' 
+      title: 'Market Price', 
+      desc: 'Current and projected selling price per kilogram in local markets' 
     },
     { 
       icon: <Clock size={20} color="#eab308" />, 
-      title: 'Harvest Duration', 
-      desc: 'Estimated time from planting to harvest in days' 
+      title: 'Growth Cycle', 
+      desc: 'Time from planting to harvest - affects cash flow and planning' 
     }
   ];
+
+  const getSimilarityBadge = (score) => {
+    if (score >= 0.8) return { text: 'Excellent Match', color: 'text-green-700 bg-green-100' };
+    if (score >= 0.6) return { text: 'Good Match', color: 'text-blue-700 bg-blue-100' };
+    if (score >= 0.4) return { text: 'Fair Match', color: 'text-yellow-700 bg-yellow-100' };
+    return { text: 'Basic Match', color: 'text-gray-700 bg-gray-100' };
+  };
+
+  // Show loading state if data is still loading
+  if (dataLoading) {
+    return (
+      <div className="page">
+        <section className="page-section">
+          <div className="container">
+            <div className="card" style={{ textAlign: 'center', padding: '60px' }}>
+              <div style={{
+                width: '50px',
+                height: '50px',
+                border: '4px solid #f3f4f6',
+                borderTop: '4px solid #16a34a',
+                borderRadius: '50%',
+                animation: 'spin 1s linear infinite',
+                margin: '0 auto 20px auto'
+              }}></div>
+              <h2 style={{ fontSize: '24px', fontWeight: '600', color: '#111827', marginBottom: '12px' }}>
+                Loading Agricultural Database...
+              </h2>
+              <p style={{ color: '#6b7280', fontSize: '16px' }}>
+                Preparing crop recommendation system with real agricultural data
+              </p>
+            </div>
+          </div>
+        </section>
+        
+        <style>{`
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+        `}</style>
+      </div>
+    );
+  }
 
   return (
     <div className="page">
       {/* Header Section */}
       <section className="page-section gray">
         <div className="container">
-          <h1 className="page-title">Intelligent Crop Recommendation</h1>
+          <h1 className="page-title">Smart Crop Recommendation System</h1>
           <p className="page-subtitle">
-            Make smart crop choices using data from your region. Our system analyzes key agricultural factors to give you optimal planting suggestions.
+            Get personalized crop recommendations based on your specific agricultural conditions using AI-powered similarity matching and multi-criteria decision analysis.
           </p>
           
           {/* Stats Cards */}
@@ -137,7 +186,7 @@ const RecommendPage = ({
 
           {/* How It Works */}
           <div>
-            <h2 className="section-subtitle">How It Works</h2>
+            <h2 className="section-subtitle">How Our AI System Works</h2>
             <div className="steps">
               {steps.map((item, index) => (
                 <div key={index}>
@@ -160,11 +209,10 @@ const RecommendPage = ({
             {/* Form */}
             <div className="card">
               <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '16px' }}>
-                Enter Regional & Crop Information
+                Enter Your Agricultural Conditions
               </h2>
               <p style={{ color: '#6b7280', marginBottom: '24px', lineHeight: '1.5' }}>
-                Fill in your regional farming information below for an accurate crop recommendation. 
-                All data is processed securely and intelligently.
+                Provide accurate information about your farming conditions to get the most relevant crop recommendations tailored to your situation.
               </p>
               
               <form onSubmit={handleSubmit}>
@@ -196,7 +244,7 @@ const RecommendPage = ({
                   className="btn btn-primary btn-full"
                   style={{ marginTop: '20px' }}
                 >
-                  {loading ? 'Processing...' : 'Get Recommendation'}
+                  {loading ? 'Analyzing Conditions...' : 'Get Smart Recommendations'}
                 </button>
               </form>
             </div>
@@ -204,10 +252,10 @@ const RecommendPage = ({
             {/* Criteria Explanation */}
             <div className="card" style={{ height: 'fit-content' }}>
               <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '16px' }}>
-                Criteria Explanation
+                Analysis Criteria
               </h3>
               <p style={{ fontSize: '14px', color: '#6b7280', marginBottom: '16px', lineHeight: '1.5' }}>
-                These criteria are used by the system to evaluate and rank the most suitable crops for your region.
+                Our AI system evaluates these key factors to match your conditions with the most suitable crops from our agricultural database.
               </p>
               
               <div>
@@ -229,68 +277,110 @@ const RecommendPage = ({
           {/* Results Section */}
           {recommendations.length > 0 && (
             <div className="card" style={{ marginTop: '40px' }}>
-              <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '24px' }}>
-                Recommended Crops for Your Region
+              <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '8px' }}>
+                🌾 Personalized Crop Recommendations
               </h2>
+              <p style={{ fontSize: '16px', color: '#6b7280', marginBottom: '24px' }}>
+                Based on your agricultural conditions, here are the most suitable crops ranked by compatibility and MADM analysis.
+              </p>
               
               <div className="grid grid-results">
-                {recommendations.map((crop, index) => (
-                  <div key={crop.Komoditas} className="result-card">
-                    <div className="result-header">
-                      <h3 className="result-title">{crop.Komoditas}</h3>
-                      <span className="result-rank">#{index + 1}</span>
+                {recommendations.map((crop, index) => {
+                  const similarityBadge = getSimilarityBadge(crop.similarityScore || 0);
+                  return (
+                    <div key={`${crop.Komoditas}-${index}`} className="result-card">
+                      <div className="result-header">
+                        <div>
+                          <h3 className="result-title">{crop.Komoditas}</h3>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '4px' }}>
+                            <span className="result-rank">#{index + 1}</span>
+                            {crop.similarityScore && (
+                              <span className={`similarity-badge ${similarityBadge.color}`}>
+                                <Star size={12} />
+                                {similarityBadge.text}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="result-scores">
+                        {crop.similarityScore && (
+                          <div className="result-score">
+                            <span className="result-score-label">Condition Match:</span>
+                            <span className="result-score-value" style={{ color: '#16a34a', fontWeight: '600' }}>
+                              {(crop.similarityScore * 100).toFixed(1)}%
+                            </span>
+                          </div>
+                        )}
+                        <div className="result-score">
+                          <span className="result-score-label">SAW Score:</span>
+                          <span className="result-score-value">
+                            {(crop.sawScore * 100).toFixed(1)}%
+                          </span>
+                        </div>
+                        <div className="result-score">
+                          <span className="result-score-label">TOPSIS Score:</span>
+                          <span className="result-score-value">
+                            {(crop.topsisScore * 100).toFixed(1)}%
+                          </span>
+                        </div>
+                        <div className="result-score">
+                          <span className="result-score-label">Final Score:</span>
+                          <span className="result-score-value combined">
+                            {(crop.combinedScore * 100).toFixed(1)}%
+                          </span>
+                        </div>
+                      </div>
+                      
+                      <div className="result-details">
+                        <div className="result-detail">
+                          <span>Production Cost:</span>
+                          <span>Rp {crop['Biaya Produksi']?.toLocaleString() || 'N/A'}</span>
+                        </div>
+                        <div className="result-detail">
+                          <span>Market Price:</span>
+                          <span>Rp {crop['Harga Jual']?.toLocaleString() || 'N/A'}/kg</span>
+                        </div>
+                        <div className="result-detail">
+                          <span>Growth Period:</span>
+                          <span>{crop['Waktu Panen'] || 'N/A'} days</span>
+                        </div>
+                        <div className="result-detail">
+                          <span>Market Demand:</span>
+                          <span>{crop['Tingkat Kebutuhan'] || 'N/A'}/10</span>
+                        </div>
+                        <div className="result-detail">
+                          <span>Rainfall Need:</span>
+                          <span>{crop['Curah Hujan'] || 'N/A'} mm/month</span>
+                        </div>
+                        <div className="result-detail">
+                          <span>Optimal pH:</span>
+                          <span>{crop['pH Tanah'] || 'N/A'}</span>
+                        </div>
+                      </div>
                     </div>
-                    
-                    <div className="result-scores">
-                      <div className="result-score">
-                        <span className="result-score-label">SAW Score:</span>
-                        <span className="result-score-value">
-                          {(crop.sawScore * 100).toFixed(1)}%
-                        </span>
-                      </div>
-                      <div className="result-score">
-                        <span className="result-score-label">TOPSIS Score:</span>
-                        <span className="result-score-value">
-                          {(crop.topsisScore * 100).toFixed(1)}%
-                        </span>
-                      </div>
-                      <div className="result-score">
-                        <span className="result-score-label">Combined Score:</span>
-                        <span className="result-score-value combined">
-                          {(crop.combinedScore * 100).toFixed(1)}%
-                        </span>
-                      </div>
-                    </div>
-                    
-                    <div className="result-details">
-                      <div className="result-detail">
-                        <span>Production Cost:</span>
-                        <span>Rp {crop['BiayaProduksi'].toLocaleString()}</span>
-                      </div>
-                      <div className="result-detail">
-                        <span>Selling Price:</span>
-                        <span>Rp {crop['HargaJual'].toLocaleString()}/kg</span>
-                      </div>
-                      <div className="result-detail">
-                        <span>Harvest Time:</span>
-                        <span>{crop['WaktuPanen']} days</span>
-                      </div>
-                      <div className="result-detail">
-                        <span>Market Demand:</span>
-                        <span>{crop['TingkatKebutuhan']}/10</span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
               
               <div className="analysis-summary">
-                <h3 className="analysis-title">Analysis Summary</h3>
+                <h3 className="analysis-title">📊 Analysis Summary</h3>
                 <p className="analysis-text">
-                  The recommendations above are calculated using both SAW (Simple Additive Weighting) and TOPSIS 
-                  (Technique for Order Preference by Similarity to Ideal Solution) methods. The combined score 
-                  represents the average of both methods for more reliable results.
+                  Our AI system first matches your conditions with our agricultural database using similarity analysis. 
+                  Then, SAW (Simple Additive Weighting) and TOPSIS (Technique for Order Preference by Similarity to Ideal Solution) 
+                  methods evaluate each matched crop across multiple criteria. The final recommendations combine condition matching 
+                  with multi-criteria decision analysis for optimal crop selection.
                 </p>
+                
+                {recommendations.length > 0 && recommendations[0].similarityScore && (
+                  <div style={{ marginTop: '16px', padding: '12px', backgroundColor: '#f0fdf4', borderRadius: '6px', border: '1px solid #dcfce7' }}>
+                    <p style={{ fontSize: '14px', color: '#166534', margin: '0' }}>
+                      <strong>Best Match:</strong> {recommendations[0].Komoditas} with {(recommendations[0].similarityScore * 100).toFixed(1)}% 
+                      condition compatibility and {(recommendations[0].combinedScore * 100).toFixed(1)}% overall suitability score.
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
           )}

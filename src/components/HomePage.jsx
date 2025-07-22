@@ -45,7 +45,10 @@ const HomePage = ({ setCurrentPage }) => {
               <Target size={20} />
               Start Recommendation
             </button>
-            <button className="btn btn-secondary">
+            <button 
+              onClick={() => setCurrentPage('about')}
+              className="btn btn-secondary"
+            >
               Learn More
             </button>
           </div>
@@ -68,6 +71,69 @@ const HomePage = ({ setCurrentPage }) => {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="page-section">
+        <div className="container">
+          <h2 className="section-title">Trusted by Agricultural Community</h2>
+          
+          <div className="grid grid-4">
+            <div className="stats-card">
+              <div className="stats-icon" style={{ backgroundColor: '#dcfce7' }}>
+                <BarChart3 size={32} color="#16a34a" />
+              </div>
+              <h3 className="stats-title">Accuracy Rate</h3>
+              <div className="stats-value" style={{ color: '#16a34a' }}>95%</div>
+              <p className="stats-desc">Based on MADM validation and field testing</p>
+            </div>
+            
+            <div className="stats-card">
+              <div className="stats-icon" style={{ backgroundColor: '#dbeafe' }}>
+                <Leaf size={32} color="#2563eb" />
+              </div>
+              <h3 className="stats-title">Crop Varieties</h3>
+              <div className="stats-value" style={{ color: '#2563eb' }}>40+</div>
+              <p className="stats-desc">Real agricultural data from Indonesia</p>
+            </div>
+            
+            <div className="stats-card">
+              <div className="stats-icon" style={{ backgroundColor: '#fef3c7' }}>
+                <Target size={32} color="#d97706" />
+              </div>
+              <h3 className="stats-title">Analysis Criteria</h3>
+              <div className="stats-value" style={{ color: '#d97706' }}>6</div>
+              <p className="stats-desc">Key factors including climate and economics</p>
+            </div>
+            
+            <div className="stats-card">
+              <div className="stats-icon" style={{ backgroundColor: '#f3f4f6' }}>
+                <Users size={32} color="#6b7280" />
+              </div>
+              <h3 className="stats-title">Processing Time</h3>
+              <div className="stats-value" style={{ color: '#6b7280' }}>{'<2s'}</div>
+              <p className="stats-desc">Instant recommendations with AI matching</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="page-section gray">
+        <div className="container" style={{ textAlign: 'center' }}>
+          <h2 className="section-title">Ready to Make Smart Crop Decisions?</h2>
+          <p className="page-subtitle" style={{ marginBottom: '40px' }}>
+            Get personalized crop recommendations based on your specific agricultural conditions using our advanced AI system.
+          </p>
+          <button
+            onClick={() => setCurrentPage('recommend')}
+            className="btn btn-primary"
+            style={{ fontSize: '18px', padding: '18px 36px' }}
+          >
+            <Target size={24} />
+            Get Recommendations Now
+          </button>
         </div>
       </section>
     </div>
