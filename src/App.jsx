@@ -379,19 +379,6 @@ const AgroDecide = () => {
           maxHeight: '200px',
           overflow: 'auto'
         }}>
-          <div><strong>Debug Info:</strong></div>
-          <div>Data Loading: {dataLoading ? 'Yes' : 'No'}</div>
-          <div>Crop Data Loaded: {cropData.length} items</div>
-          <div>Current Page: {currentPage}</div>
-          <div>Recommendations: {recommendations.length} items</div>
-          <div>Processing: {loading ? 'Yes' : 'No'}</div>
-          {recommendations.length > 0 && (
-            <div>
-              <div>Top Recommendation: {recommendations[0].Komoditas}</div>
-              <div>Similarity: {(recommendations[0].similarityScore * 100).toFixed(1)}%</div>
-              <div>Combined Score: {(recommendations[0].combinedScore * 100).toFixed(1)}%</div>
-            </div>
-          )}
         </div>
       )}
 
