@@ -32,6 +32,8 @@ const HomePage = ({ setCurrentPage }) => {
         <div className="container">
           <h1 className="page-title">
             Smart Crop Decision for{' '}
+          </h1>
+          <h1 className="page-title">
             <span className="highlight">Sustainable Agriculture</span>
           </h1>
           <p className="page-subtitle">
