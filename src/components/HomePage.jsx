@@ -118,24 +118,6 @@ const HomePage = ({ setCurrentPage }) => {
           </div>
         </div>
       </section>
-
-      {/* CTA Section */}
-      <section className="page-section gray">
-        <div className="container" style={{ textAlign: 'center' }}>
-          <h2 className="section-title">Ready to Make Smart Crop Decisions?</h2>
-          <p className="page-subtitle" style={{ marginBottom: '40px' }}>
-            Get personalized crop recommendations based on your specific agricultural conditions using our advanced AI system.
-          </p>
-          <button
-            onClick={() => setCurrentPage('recommend')}
-            className="btn btn-primary"
-            style={{ fontSize: '18px', padding: '18px 36px' }}
-          >
-            <Target size={24} />
-            Get Recommendations Now
-          </button>
-        </div>
-      </section>
     </div>
   );
 };
